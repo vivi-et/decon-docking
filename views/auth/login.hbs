@@ -1,0 +1,35 @@
+{{!< auth}}
+
+<div class="space"></div>
+<div class="ui centered grid">
+  <h1>Login</h1>
+</div>
+<div class="space"></div>
+{{#each errors}}
+<div class="error">
+  <p>{{text}}</p>
+</div>
+{{/each}}
+<div class="space"></div>
+<div class="space"></div>
+<div class="space"></div>
+<form class="ui form" action="/auth/login" method="POST">
+
+  <div class="field">
+    <label for="username"> 아이디</label>
+      <input type="text" id="username" name="username" required>
+  </div>
+  <div class="field">
+    <label for="password">비밀번호</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+
+  <button class="ui fluid blue button" type="submit" name="action">LOGIN
+  </button>
+</form>
+<br>
+
+
+<a href="/auth/register">
+  <button class="ui fluid green button" type="submit" name="action">REGISTER
+  </button></a>

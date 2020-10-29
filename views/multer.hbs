@@ -1,0 +1,26 @@
+{{!< main}}
+
+<h1>Node File Uploads</h1>
+
+
+{{#if err}}
+<h3>{{err}}</h3>
+{{/if}}
+
+<form action="/multer/upload" method="POST" enctype="multipart/form-data">
+  <div class="file-field input-field">
+    <div class="btn grey">
+      <span>File</span>
+      <input name="myImage" type="file">
+    </div>
+    <div class="file-path-wrapper">
+      <input class="file-path validate" type="text">
+    </div>
+  </div>
+  <button type="submit" class="btn">Submit</button>
+</form>
+{{#if file}}
+
+<img src="/{{file}}" alt="" srcset="" class="responsive-img">
+
+{{/if}}

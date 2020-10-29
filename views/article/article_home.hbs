@@ -1,0 +1,81 @@
+{{!< main}}
+<h1>Article home</h1>
+
+
+<br>
+<br>
+<div style="width: 80%">
+
+
+  <table class="ui  celled table">
+    <thead>
+      <tr>
+        <th class="one wide">ID</th>
+        <th class="one wide">User</th>
+        <th class="one wide">Title</th>
+        {{!-- <th>Text</th> --}}
+        <th class="two wide">Date</th>
+      </tr>
+    </thead>
+    <tbody>
+      {{#each articles.rows}}
+      <tr>
+        <td>{{id}}</td>
+        <td>{{user.username}}</td>
+        <td><a href="/article/view/{{id}}">{{title}}</a></td>
+        {{!-- <td>{{text}}</td> --}}
+        <td>{{moments}}</td>
+      </tr>
+      {{/each}}
+
+    </tbody>
+  </table>
+</div>
+<br><br>
+
+
+<div class="ui pagination menu">
+  <a class="item">
+    <- </a>
+      {{#each articles.index as |key|}}
+      {{#if key}}
+      <a class="item" href="/article/list/?currentPage={{key}}" id="page{{key}}">
+        {{key}}
+      </a>
+      {{/if}}
+      {{/each}}
+      <a class="item">
+        ->
+      </a>
+</div>
+<a href="/article/add">
+  <br>
+  <br>
+  <div class="ui button blue">Add Article</div>
+</a>
+<br>
+<br>
+<br>
+
+<style>
+  .as-console-wrapper {
+    max-height: 100% !important;
+  }
+</style>
+
+<script>
+
+  $(document).ready(() => {
+    const queryString = window.location.search;
+    const urlParams = new URLSearchParams(queryString);
+    const currentPage = urlParams.get('currentPage')
+    console.log(currentPage);
+
+    $(`#page${currentPage}`).addClass('active')
+
+  })
+
+
+
+// shirt
+</script>

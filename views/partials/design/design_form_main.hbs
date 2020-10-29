@@ -1,0 +1,328 @@
+<br>
+<div class="field">
+  <label for="">상품 대표 이미지</label>
+  <input data-main="0" id="files" name="mainimage" type="file" onchange="handleFileSelect(this)">
+</div>
+<br>
+<div id="filesresult" class="ui small images" style="display: inline-flex;">
+  <br>
+  {{#if article.image}}
+  {{#each article.image}}
+  <img class='ui image' src="/uploads/imgs/article/{{filename}}">
+  {{/each}}
+  {{/if}}
+</div>
+<br>
+<div class="fields">
+  <div class="field">
+    <label>디자인</label>
+    <select data-main="0" class="ui search dropdown" id="category1" name="category1">
+      <option value="design">디자인</option>
+      {{!-- <option value="category1_A2">category1_A2</option> --}}
+    </select>
+  </div>
+  <div class="field">
+    <label>Category 2</label>
+    <select data-main="0" class="ui search dropdown" id="category2" name="category2">
+      <option value="logo">1.로고</option>
+      <option value="promotionalvideo">2.홍보영상</option>
+      <option value="youtube">3.유튜버/방송영상</option>
+      <option value="sns">4.SNS/소셜미디어 게시물</option>
+    </select>
+  </div>
+  <div class="field" id="category3">
+    <label>Category 3</label>
+    <select data-main="0" class="ui search dropdown" id="category3" name="category3">
+      <option value="category3_A1">1.category3_A1</option>
+      <option value="category3_A2">2.category3_A2</option>
+      <option value="category3_A3">3.category3_A3</option>
+      <option value="category3_A4">4.category3_A4</option>
+    </select>
+  </div>
+</div>
+
+<div class="field">
+  <input data-main="0" type="text" placeholder="상품명" name="design_name">
+</div>
+
+<br>
+<div class="fields">
+  <div class="field">
+    <label for="">디자이너 시급</label>
+    <div class="disabled field">
+      <input data-main="0" type="text" name="price1" id="" value="10000" readonly>
+
+    </div>
+  </div>
+  <div class="field">
+    <label for="">시안작업 갯수</label>
+    <input data-main="0" type="number" name="quantity" onkeydown="return event.keyCode !== 69" />
+  </div>
+  <div class="field">
+    <label for="">소요시간</label>
+    <input data-main="0" type="number" name="timeperitem" onkeydown="return event.keyCode !== 69" />
+  </div>
+</div>
+<br>
+
+<div class="fields">
+  <div class="field">
+    <label for="">직접경비, 재경비, 창작료</label>
+    <div class="ui right labeled input">
+      <input data-main="0" type="number" name="fee" onkeydown="return event.keyCode !== 69" />
+      <div class="ui basic label">
+        ₩
+      </div>
+    </div>
+  </div>
+  <div class="field">
+    <label for="">무료수정횟수</label>
+    <input data-main="0" type="number" name="fixfreechance" onkeydown="return event.keyCode !== 69" />
+  </div>
+  <div class="field">
+    <label for="">무료수정 후 유료수정 1회당 금액</label>
+    <div class="ui right labeled input">
+      <input data-main="0" type="number" name="fixprice" onkeydown="return event.keyCode !== 69" />
+      <div class="ui basic label">
+        ₩
+      </div>
+    </div>
+  </div>
+</div>
+<br>
+
+<div class="ui red message">
+  *디자이너시급 변경은 셀러정보관리 > 판매정보 보기에서 변경가능합니다.
+  <br>
+  *디자이너 노임시급 x 시안작업수 x 소요시간 = 기본단가
+  <br>
+  *유료수정 1회당 가격설정 : 무료수정횟수 차감이후에 수정진행시 1회당 추가금액을 기입해주세요
+  <br>
+  *기본급여,제수당,월 상여금,월 퇴직충당금,사회보험료를 포함한 결과(산업통상자원부 고시 2019-212호)
+  <br>
+</div>
+<br><br>
+<div class="field">
+  <label for="">기본단가</label>
+  <div class="ui right labeled input">
+    <input data-main="0" type="number" name="baseprice" onkeydown="return event.keyCode !== 69" />
+    <div class="ui basic label">
+      ₩
+    </div>
+  </div>
+</div>
+<br><br>
+
+
+
+<br><br>
+<div class="field">
+  <label for="">
+    상품 상세 이미지
+    <br>
+    추천사이즈 : 3:2 비율(w1080xh720px)
+  </label>
+  <div class="ui red message">
+    *jpg, jpeg, png, bmp 형식의 정지 이미지만 등록이 가능합니다.
+    <br>
+    *추가 이미지는 최대 5개까지 설정할 수 있습니다.
+    <br>
+    *용량은 5MB를 초과할 수 없습니다.
+    <br>
+  </div>
+  <div class="ui message red">*대표이미지와 동일한 수준의 작업물을 제공해주세요, 합당한 가격에 대한 고객과의 약속입니다.
+    <br>
+    *카테고리에 맞는 동일한 수준의 이미지를 등록해주세요. (상품승인 거절사유가 될 수 있습니다.)
+  </div>
+
+  <input data-main="0" id="subfiles" multiple name="subimage" type="file" onchange="handleFileSelect(this)">
+  <br>
+  <br>
+  <div id="subfilesresult" class="ui small images" style="display: inline-flex;">
+    {{#if article.image}}
+    {{#each article.image}}
+    <img class='ui image' src="/uploads/imgs/article/{{filename}}">
+    {{/each}}
+    {{/if}}
+    <br>
+    <br>
+
+  </div>
+</div>
+
+
+<div class="ui centered grid">
+  <h3>
+    상품정보 아이콘 정보입력 및 노출설정
+  </h3>
+</div>
+<br>
+<br>
+<div class="ui centered grid">
+  <div class="ui red message">
+    *등록될 상품의 정보탭에 아이콘으로 노출 될 정보입니다.
+  </div>
+</div>
+<br>
+<br>
+<div class="field">
+  <label for="">기본제공 결과물형식</label>
+  <div class="ui red message">
+    원본파일은 옵션으로도 제공 가능합니다.
+  </div>
+</div>
+<div class="fields">
+  <div class="field" style="width: auto; min-width: 30%;">
+    <select data-main="0" multiple="" id="skills" class="ui fluid dropdown" name="skills">
+      <option value="">선택</option>
+      <option value="a" disabled>인기결과물</option>
+      <option value="JPG">JPG</option>
+      <option value="PNG">PNG</option>
+      <option value="b" disabled>기타</option>
+      <option value="design_name1_A3">design_name1_A3</option>
+      <option value="design_name1_A4">design_name1_A4</option>
+    </select>
+  </div>
+  <div class="field" style="width: auto; min-width: 10%;">
+    <select data-main="0" id="format" class="ui fluid dropdown" name="colorformat">
+      <option value="RGB" selected>RGB</option>
+      <option value="CMYK">CMYK</option>
+    </select>
+  </div>
+</div>
+
+<div class="field">
+  <label for="">대표규격/해상도</label>
+</div>
+
+<div class="fields">
+  <div class="field">
+    <input data-main="0" type="number" name="width" onkeydown="return event.keyCode !== 69" placeholder="가로" />
+  </div>
+  X
+  <div class="field">
+    <input data-main="0" type="number" name="height" onkeydown="return event.keyCode !== 69" placeholder="세로" />
+  </div>
+
+  <div class="field" style="width: auto; min-width: 10%;">
+    <select data-main="0" id="format" class="ui fluid dropdown" name="format">
+      <option value="px" selected>px</option>
+      <option value="mm">mm</option>
+    </select>
+  </div>
+
+  <div class="field" style="width: 8%;">
+    <input data-main="0" type="number" name="dpi" onkeydown="return event.keyCode !== 69" placeholder="DPI" />
+  </div>
+
+
+</div>
+
+<div class="field">
+  <label for="">기본작업 소요일</label>
+
+
+</div>
+
+<div class="ui message red">
+  *모든 작업시간은 결제일을 기준으로 계산되며, 한국시간 영업일기준으로 계산됩니다.
+  <br>
+  *고객결제 후 이메일발송까지 소요일
+  <br>
+  *빠른작업시, 작업소요일은 최소 소요일의 60%기간을 초과할 수 없습니다.
+  <br>
+</div>
+
+<div class="ui red message">
+  *시스템으로 번역이되기 때문에, 반드시 언어별 등록 후 교정 및 확인을 진행해주세요.
+</div>
+
+<br>
+<br>
+
+<div class="ui four item menu">
+  <a class="item active">한글</a>
+  <a class="item">English</a>
+  <a class="item">日本信</a>
+  <a class="item">中國信</a>
+</div>
+<br>
+<br>
+<div class="field">
+  <label for="">검색 키워드</label>
+  <input data-main="0" type="text" name="keyword">
+</div>
+<div class="ui red message">
+  *판매 상품과 직접 관련이 없는 다른 상품명, 스팸성 키워드 입력 시 관리자에 의해 판매 금지될 수 있습니다.
+</div>
+<br>
+<br>
+<br>
+<div class="ui grid centered">
+  <h3>
+    Product comment
+  </h3>
+  <br>
+</div>
+
+<br>
+<div class="ui message red">
+  *상품명과 직접적 관련 없는 상세설명, 외부 링크 입력 시 관리자에 의해 판매 금지 될 수 있습니다.
+  <br>
+  *안전거래정책에 위배될 경우 관리자에 의해 제재조치가 있을 수 있습니다.
+  <br>
+  *외부링크, 일부 스크립트 및 태그는 자동 삭제될 수 있습니다.
+  <br>
+  *상세설명 이미지 삽입시 권장 크기 : 가로 900px (72dpi)
+</div>
+<div class="field">
+  <label>상품안내</label>
+  <textarea data-main="0" name="maindescription"></textarea>
+</div>
+
+<br>
+
+<script>
+
+  function clearThumbnails(imageSection) {
+    imageSection.innerHTML = '';
+  }
+  function handleFileSelect(item) {
+    console.log(item.id);
+
+    const imageSection = output = document.getElementById(`${item.id}result`)
+
+    const element = $(`#${item.id}`);
+
+    if (element[0].files.length > 5) {
+      element.val('');
+      alert("You can select only 5 images");
+      clearThumbnails(imageSection);
+      return false;
+    }
+
+    // Check File API support
+    if (window.File && window.FileList && window.FileReader) {
+      imageSection.innerHTML = '';
+      const { files } = event.target; // FileList object
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        // Only pics
+        if (!file.type.match('image')) continue;
+
+        const picReader = new FileReader();
+        picReader.addEventListener('load', (event) => {
+          const picFile = event.target;
+          const div = document.createElement('div');
+          div.innerHTML = `<img class='ui image' src='${picFile.result}'` + `title='${picFile.name}'/>`;
+          output.insertBefore(div, null);
+        });
+        // Read the image
+        picReader.readAsDataURL(file);
+      }
+    } else {
+      console.log('Your browser does not support File API');
+    }
+  }
+
+</script>

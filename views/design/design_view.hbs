@@ -1,0 +1,102 @@
+{{!< main}}
+
+<br><br><br>
+<div class="ui container">
+  {{#sample}}
+  <h2>
+    <br>id: {{id}}
+
+  </h2>
+  <br>디자인 category1: {{category1}}
+  <br>category2: {{category2}}
+  <br>category3: {{category3}}
+  <br>상품명 design_name: {{design_name}}
+  <br>디자이너 시급 price1: {{price1}}
+  <br>시안작업 갯수 quantity: {{quantity}}
+  <br>소요시간 timeperitem: {{timeperitem}}
+  <br>직접경비, 재경비, 창작료 fee: {{fee}}
+  <br>무료수정횟수 fixfreechance:: {{fixfreechance}}
+  <br>무료수정 후 유료수정 1회당 금액 fixprice: {{fixprice}}
+  <br>기본단가 baseprice: {{baseprice}}
+  <br>기본제공 결과물형식 skills: {{skills}}
+  <br>RGB, CMYK colorformat: {{colorformat}}
+  <br>대표규격/해상도 w width: {{width}}
+  <br>대표규격/해상도 h height: {{height}}
+  <br>px mm format: {{format}}
+  <br>대표규격/해상도 dpi: {{dpi}}
+  <br>검색 키워드 keyword: {{keyword}}
+  <br>상세상품안내 maindescription: {{maindescription}}
+
+  <br>
+  <br>상품대표이미지 image_main: <br>
+  <div class="ui tiny images">
+    <br>
+    <img class="ui image" src="/uploads/imgs/design/{{image_main}}">
+  </div>
+  <br>
+
+  상품 상세 이미지 image_sub: <br>
+  <span class="ui tiny images">
+    {{#each image_sub}}
+    <img class="ui image" src="/uploads/imgs/design/{{this}}">
+
+
+    {{/each}}
+  </span>
+  <hr>
+  <h2>
+    <br>옵션 options:
+  </h2>
+  {{#each options}}
+  <h2>
+    <br>옵션 번호 option number: {{inc @index}}
+  </h2>
+  <br>옵션명 optionname: {{optionname}}
+  <br>필수옵션인가요? isrequired: {{isrequired}}
+  <br>옵션타입 optiontype: {{optiontype}}
+  <br>옵션명 image_option: {{image_option}}
+  <br>옵션명안내문 optiondescription: {{optiondescription}}
+  <br>옵션예시 이미지 image_option: <br>
+<br>
+  <div class="ui tiny images">
+    <img class="ui image" src="/uploads/imgs/design/{{image_option}}">
+  </div>
+
+  <br><br>
+  <h3>
+    옵션선택항목 입력 suboptions:
+  </h3>
+  <br>
+  {{#each suboptions}}
+  <h3>
+    옵션선택항목 번호 suboption number: {{inc @index}}
+
+  </h3>
+  <br>
+  <br>
+  세부옵션 항목명 suboptions1: {{suboption1}}
+  <br>
+  + - suboption2: {{suboption2}}
+  <br>
+  옵션선택시 추가가격 suboption3: {{suboption3}}
+  <br>
+  화폐 suboption4: {{suboption4}}
+  <br><br><br>
+  {{/each}}
+  <br><br>
+  <hr>
+  {{/each}}
+  <br>
+  <hr>
+  {{!-- {
+  "suboptions": [
+  {"suboption1": "1111111",  "suboption2": "plus", "suboption3": "222222", "suboption4": "krw"}, 
+  {"suboption1": "111111", "suboption2": "minus",  "suboption3": "222222", "suboption4": "krw"}
+  ]
+  } --}}
+
+  <br><br><br>
+
+  {{/sample}}
+
+</div>

@@ -1,0 +1,104 @@
+<div class="optioncontainer" data-item="${newOptionNo}">
+  <br>
+
+  <div class="ui grid centered">
+    <h2>
+      Product Option
+    </h2>
+    <br>
+  </div>
+  <div class="ui grid centered">
+    <h4>
+      상품 옵션
+    </h4>
+    <br>
+  </div>
+
+  <div class="ui message red">
+    *판매 상품과 직접 관련이 없는 옵션 입력 시 관리자에 의해 판매 금지될 수 있습니다.
+
+  </div>
+
+  <hr>
+  <br><br>
+  <div class="ui grid">
+    <div class="four column row">
+
+      <div class="left floated column banner">
+        <div id="optionid${newOptionNo}" data-item="${newOptionNo}" style="font-size: 3em;">
+          ${newOptionNo+1}
+        </div>
+      </div>
+      <div class="right floated column">
+        <div class="ui right floated red button" data-item="${newOptionNo}"
+          onclick="event.preventDefault(); deleteoption(this);">
+          -
+        </div>
+      </div>
+    </div>
+
+  </div>
+
+  <br><br>
+
+  <div class="fields">
+
+
+    <div class="field">
+      <label for="">옵션타입</label>
+      <select data-item="${newOptionNo}" class="ui search dropdown" name="optiontype">
+        <option value="single">단일선택방식</option>
+        <option value="multiple">다중선택방식</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <label for="">필수 옵션인가요?</label>
+      <div class="ui checked huge checkbox">
+        <input data-item="${newOptionNo}" class="ui search dropdown" name="isrequired" type="checkbox" checked="">
+        <label></label>
+      </div>
+    </div>
+
+
+  </div>
+
+  <div class="ui red message">
+    * 단일선택 방식 : 옵션선택항목들 중에 1가지만 선택할 수 있는 옵션타입입니다.
+    <br>
+    * 다중선택 방식 : 옵션선택항목들 중에 여러가지를 선택할 수 있는 옵션타입입니다.
+    <br>
+    * 카운트 방식 : 수량조절 및 수량변화에 따른 가격을 조절할 수 있는 옵션타입입니다.
+  </div>
+
+
+  <br>
+  <br>
+  <div class="field">
+    <label for="">옵션명</label>
+    <input data-item="${newOptionNo}" type="text" name="optionname" id=""
+      placeholder="예)작업물방향 선택 / 제작형태 / 배경색상선택 / 결과물 파일형식">
+  </div>
+  <br>
+  <div class="field">
+    <label for="">옵션명안내문</label>
+    <input data-item="${newOptionNo}" type="text" name="optiondescription" id="">
+  </div>
+  <br>
+
+  <div class="field">
+    <label for="">옵션예시 이미지</label>
+    <input data-item="${newOptionNo}" type="file" name="optionimage${newOptionNo}" onchange="handleFileSelect(this)"
+      id="suboption${newOptionNo}files">
+  </div>
+  <br>
+  <div id="suboption${newOptionNo}filesresult" class="ui small images"> </div>
+  <br>
+  <div class="suboptionfield" test="true">
+    {{!-- suboption --}}
+  </div>
+  <button class="ui button" style="height: 4em; border-radius: 0 0 10px 10px;" id="addsuboption${newOptionNo}"
+    data-item="${newOptionNo}" optionid="${newOptionNo}" onclick="event.preventDefault(); addsuboption(this);">옵션선택항목
+    등록</button>
+  <br><br>
+</div>

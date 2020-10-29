@@ -1,0 +1,36 @@
+<div class="suboptioncontainer" data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}">
+
+  <div class="fields" data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}">
+    <div class=" field">
+      <button onclick="event.preventDefault(); deletesuboption(this);" data-option="${thisOptionNo}"
+        data-suboption="${thisSubOptionNo}" value="${thisOptionNo}" class="ui button red">-</button>
+    </div>
+    <div class="field" style="width: 40%;">
+      <input data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}" type="text" name="suboption1"
+        placeholder="세부옵션 항목명">
+    </div>
+
+    <div class="field">
+      <select data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}" class="ui search dropdown"
+        name="suboption2">
+        <option value="plus">+</option>
+        <option value="minus">-</option>
+      </select>
+    </div>
+
+    <div class="field">
+      <input data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}" placeholder="옵션선택시 가격" type="number"
+        name="suboption3" onkeydown="return event.keyCode !== 69" />
+    </div>
+
+    <div class="field">
+      <select data-option="${thisOptionNo}" data-suboption="${thisSubOptionNo}" class="ui search dropdown"
+        name="suboption4">
+        <option value="krw">원</option>
+        <option value="usd">USB</option>
+      </select>
+    </div>
+  </div>
+  <br><br>
+
+</div>

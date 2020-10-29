@@ -1,0 +1,22 @@
+{{!< auth}}
+<br><br>
+<h1>Register</h1>
+<form class="ui form" action="/auth/register" method="POST">
+  <div class="field">
+    <label for="username">Username</label>
+    <input type="text" id="username" name="username" required>
+  </div>
+  <div class="field">
+    <label for="email">Email</label>
+    <input type="email" id="email" name="email" required>
+  </div>
+  <div class="field">
+    <label for="password">Password</label>
+    <input type="password" id="password" name="password" required>
+  </div>
+  <button class="ui button" type="submit">Register</button>
+</form>
+<br><br>
+Or
+<br>
+<a href="/auth/login"><button class="ui button">Login</button></a>

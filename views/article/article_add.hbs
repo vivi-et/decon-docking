@@ -1,0 +1,95 @@
+{{!< main}}
+
+{{#if err}}
+<div class="ui error message">
+  <i class="close icon"></i>
+  <div class="header">
+    Errors
+  </div>
+  <ul class="list">
+    {{#each err}}
+    <li>{{message}}</li>
+    {{/each}}
+  </ul>
+</div>
+{{/if}}
+
+<form class="ui form" method="POST" action="/article/add" enctype="multipart/form-data">
+  <div class="field">
+    <label>Title</label>
+    <input type="text" name="title" placeholder="Title">
+    <br>
+    <br>
+    <label>Text</label>
+    <textarea name="text" placeholder="Text">
+  </textarea>
+  </div>
+  <div class="field">
+    <label>File</label>
+  </div>
+  <input id="files" name="image" type="file" multiple="multiple">
+  {{!-- <input type="file" name="image" value="noimage.jpg"> --}}
+
+
+  <br><br>
+  <button class="ui button" type="submit">Submit</button>
+</form>
+
+<br>
+
+
+<div id="result" class="ui small images" style="display: inline-flex;">
+
+</div>
+
+<script>
+
+  function clearThumbnails() {
+    const imageSection = document.getElementById('result')
+    imageSection.innerHTML = '';
+  }
+
+  function handleFileSelect() {
+
+
+    if ($("#files")[0].files.length > 2) {
+      $("#files").val('');
+      alert("You can select only 2 images");
+      clearThumbnails();
+      return false;
+    }
+
+    // Check File API support
+    if (window.File && window.FileList && window.FileReader) {
+
+
+      const imageSection = document.getElementById('result')
+      imageSection.innerHTML = '';
+
+
+      const { files } = event.target; // FileList object
+      const output = document.getElementById('result');
+
+      for (let i = 0; i < files.length; i++) {
+        const file = files[i];
+        // Only pics
+        if (!file.type.match('image')) continue;
+
+        const picReader = new FileReader();
+        picReader.addEventListener('load', (event) => {
+          const picFile = event.target;
+          const div = document.createElement('div');
+          div.innerHTML = `<img class='ui image' src='${picFile.result}'` + `title='${picFile.name}'/>`;
+          output.insertBefore(div, null);
+        });
+        // Read the image
+        picReader.readAsDataURL(file);
+      }
+    } else {
+      console.log('Your browser does not support File API');
+    }
+  }
+
+  document.getElementById('files').addEventListener('change', handleFileSelect, false);
+
+</script>

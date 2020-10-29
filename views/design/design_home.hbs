@@ -1,0 +1,264 @@
+{{!< main}}
+<script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+
+
+<form class="ui form" id="form" action="/design/add" method="POST" enctype="multipart/form-data">
+
+
+
+  <div class="order_list">
+    <h1>Add Product</h1>
+    <br><br>
+    <div id="mainoption">
+      {{> design/design_form_main}}
+    </div>
+    <br>
+    <div id="option">
+      {{!-- design_form_options appended here --}}
+    </div>
+    <button class="ui teal button" onclick="addOption(); event.preventDefault(); "
+      style="height: 4em; border-radius: 0 0 10px 10px;">
+      옵션추가
+    </button>
+  </div>
+  <input name="mainformval" id="mainformval" hidden>
+  <input name="suboptionformval" id="suboptionformval" hidden>
+</form>
+<br><br>
+
+
+<button class="ui inverted fluid red large button" onclick="event.preventDefault(); submit();">등록하기</button>
+<br><br>
+<script>
+
+  const optionsLimit = 4;
+  const suboptionsLimit = 4;
+  const subOptionCountArr = [];
+  let thisOptionNo = 0;
+  let newOptionNo = 0;
+  let thisSubOptionNo = 0;
+
+  let i_ = 0;
+  while (i_ < suboptionsLimit) {
+    subOptionCountArr.push(0)
+    i_++;
+  }
+
+  console.log(subOptionCountArr);
+
+
+  //SERIALIZEOBJECT(),  TRAMSFORM FORM DATA TO JSON OBJECT
+  $.fn.serializeObject = function () {
+    var obj = {};
+    var array = this.serializeArray();
+    $.each(array, function () {
+      if (obj[this.name] !== undefined) {
+        if (!obj[this.name].push) {
+          obj[this.name] = [obj[this.name]];
+        }
+        obj[this.name].push(this.value || '');
+      } else {
+        obj[this.name] = this.value || '';
+      }
+    });
+    return obj;
+  };
+
+  //APPLY FORMANTIC UI SETTINGS TO APPENDED FORMS
+  function applyDropdownSettings(item) {
+    $('.ui.dropdown')
+      .dropdown({
+        maxSelections: 2
+      });
+
+  }
+
+
+  // ONREADY
+  $(document).ready(function () {
+
+    addOption();
+    applyDropdownSettings();
+
+    var last_valid_selection = null;
+
+    $('.dropdown').change(function (event) {
+
+      console.log(this);
+
+
+      if ($(this).val().length > 2) {
+
+        $(this).val(last_valid_selection);
+      } else {
+        last_valid_selection = $(this).val();
+      }
+    });
+  });
+
+  // APPEND OPTION FORM
+  function addOption() {
+    console.log(newOptionNo);
+    if (newOptionNo > optionsLimit) {
+      newOptionNo = optionsLimit
+      return alert(optionsLimit+1 + ` only!`);
+    }
+    const html = `{{> design/design_form_option}}`;
+    $('#option').append(html)
+    applyDropdownSettings();
+    $(`#addsuboption${newOptionNo}`).click();
+    newOptionNo++;
+    return false;
+  }
+
+
+  //DELETE OPTION
+  function deleteoption(option) {
+
+    const thisoption = $(option).closest('div.optioncontainer');
+    const thisoptionnumber = $(option).closest('div.optioncontainer').attr('data-item');
+
+
+
+    console.log(`thisoptionnumber : ${thisoptionnumber}`);
+
+
+
+    $(thisoption).remove();
+    newOptionNo--;
+
+    //CHANGE(PULL) ALL DATA-ITEM
+    $("[data-item]").each(function () {
+      let datano = $(this).attr('data-item');
+      if (datano > thisoptionnumber) {
+
+        $(this).attr('data-item', `${datano - 1}`);
+        $(this).attr('optionid', `${datano - 1}`);
+      }
+    });
+
+
+    //cHANGE(PULL) ALL DATA-OPTION FOR SUBOPTIONS
+    $("[data-option]").each(function () {
+      let datano = $(this).attr('data-option');
+      if (datano > thisoptionnumber) {
+
+        $(this).attr('data-option', `${datano - 1}`);
+      }
+    });
+
+
+
+
+    // CHANGE(PULL) OTHER OPTIONCONTAINERS
+    $("div[id*='optioncontainer']").each(function () {
+      let dataval = $(this).attr('data-item');
+      $(this).attr("id", `optioncontainer${dataval}`);
+    })
+
+    // CHANGE(PULL) OTHER OPTIONIDS
+    $("div[id*='optionid']").each(function () {
+
+      let index = $(this).attr('data-item');
+      console.log(`index index index ${index}`);
+
+
+      $(this).text(index).attr('id', `optionid${index}`)
+    });
+
+
+
+
+  }
+
+  //SUBMIT FORM
+  function submit() {
+
+
+    // const dataArr = [];
+    let optionArr = [];
+    let subOptionDataArr = [];
+
+    let mainFormData = $(`[data-main="0"]`).serializeObject();
+
+
+    for (let i = 0; i < newOptionNo; i++) {
+      console.log(i);
+      let formData = $(`[data-item="${i}"]`).serializeObject();
+
+      for (let j = 0; j < subOptionCountArr[i]; j++) {
+        let subData = $(`[data-option="${i}"][data-suboption="${j}"]`).serializeObject();
+        console.log(`subData${i}-${j} : ${subData}`);
+
+        subOptionDataArr.push(subData);
+      }
+
+      console.log(`subOptionDataArr${i}: ${subOptionDataArr}`);
+
+
+      formData.suboptions = subOptionDataArr;
+      optionArr.push(formData);
+      console.log(optionArr);
+      subOptionDataArr = [];
+    }
+
+
+    mainFormData.options = optionArr;
+    // dataArr.push(mainFormData);
+
+
+    let a = JSON.stringify(mainFormData);
+
+    $('#mainformval').val(`${a}`);
+
+    $('#form').submit();
+
+  }
+
+  //ADD SUBOPTION
+  function addsuboption(_this) {
+    thisOptionNo = $(_this).closest('div.optioncontainer').attr('data-item');
+    thisSubOptionNo = subOptionCountArr[thisOptionNo];
+
+    if (thisSubOptionNo > suboptionsLimit) {
+      subOptionCountArr[thisOptionNo] = suboptionsLimit;
+      return alert(suboptionsLimit+1 +` only!`);
+    }
+    const html = `{{> design/design_form_suboption}}`;
+
+    $(_this).prev().append(html);
+    applyDropdownSettings();
+    subOptionCountArr[thisOptionNo]++;
+    return true;
+  }
+
+  //DELETE SUBOPTION
+  function deletesuboption(_this) {
+
+    const thisOptionNo = $(_this).attr('data-option');
+    const thisSubOptionNo = $(_this).attr('data-suboption');
+
+    let currentSubOptionArr = subOptionCountArr[thisOptionNo];
+
+    let a = $(`div.suboptioncontainer[data-option="${thisOptionNo}"][data-suboption="${thisSubOptionNo}"]`).remove();
+    subOptionCountArr[thisOptionNo]--;
+
+
+    // CHANGE OTHER DATA_SUBOPTIONS
+    $(`[data-option="${thisOptionNo}"]`).each(function () {
+      let eachSubOptionNo = $(this).attr('data-suboption');
+
+
+      if (eachSubOptionNo > thisSubOptionNo) {
+        console.log(`eachSubOptionNo : ${eachSubOptionNo--}`);
+
+        $(this).attr("data-suboption", `${eachSubOptionNo--}`);
+      }
+    });
+
+    console.log(subOptionCountArr[thisOptionNo]);
+
+
+  }
+
+</script>
